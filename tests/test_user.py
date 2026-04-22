@@ -10,12 +10,12 @@ client = TestClient(app)
 users = [
     {
         'id': 1,
-        'name': 'Ivan Ivanov',
+        'name': 'Ivan HALIMONS',
         'email': 'i.i.ivanov@mail.com',
     },
     {
         'id': 2,
-        'name': 'Petr Petro',
+        'name': 'VOva KApral',
         'email': 'p.p.petrov@mail.com',
     }
 ]
