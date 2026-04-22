@@ -15,7 +15,7 @@ users = [
     },
     {
         'id': 2,
-        'name': 'Petr Petrov',
+        'name': 'Petr Petro',
         'email': 'p.p.petrov@mail.com',
     }
 ]
