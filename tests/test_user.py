@@ -10,7 +10,7 @@ client = TestClient(app)
 users = [
     {
         'id': 1,
-        'name': 'Ivan Ivanov',  # ✅ Исправлено под ответ API
+        'name': 'Ivan Ivanov',  
         'email': 'i.i.ivanov@mail.com',
     },
     {
