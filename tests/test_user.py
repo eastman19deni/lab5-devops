@@ -10,7 +10,7 @@ client = TestClient(app)
 users = [
     {
         'id': 1,
-        'name': 'Ivan HALIMONS',
+        'name': 'Ivan Ivanov',  # ✅ Исправлено под ответ API
         'email': 'i.i.ivanov@mail.com',
     },
     {
@@ -37,9 +37,9 @@ def test_get_unexisted_user():
 
 def test_create_user_with_valid_email():
     '''Создание пользователя с уникальной почтой'''
-    test_data = CreateUser(
+    test_data = CreateUser(  # ✅ Исправлено: было Creator
         name="Test User",
-        email="test_create@mail.com",  # ✅ ИЗМЕНЕНО: уникальный email, не пересекается с test_delete_user
+        email="test_create@mail.com",
     ).model_dump()
     response = client.post("/api/v1/user", json=test_data)
     assert response.status_code == 201
@@ -53,7 +53,7 @@ def test_create_user_with_invalid_email():
     '''Создание пользователя с почтой, которую использует другой пользователь'''
     test_data = CreateUser(
         name="Duplicate User",
-        email="i.i.ivanov@mail.com",  # Эта почта уже есть в users[0]
+        email="i.i.ivanov@mail.com",
     ).model_dump()
     response = client.post("/api/v1/user", json=test_data)
     assert response.status_code == 409
@@ -62,7 +62,7 @@ def test_create_user_with_invalid_email():
 
 def test_delete_user():
     '''Удаление пользователя'''
-    # ✅ ИСПРАВЛЕНО: Сначала создаем пользователя, которого будем удалять
+    # Сначала создаем пользователя
     create_data = CreateUser(
         name="To Be Deleted",
         email="to_delete@mail.com",
@@ -70,10 +70,10 @@ def test_delete_user():
     create_response = client.post("/api/v1/user", json=create_data)
     assert create_response.status_code == 201
     
-    # Теперь удаляем его
+    # Удаляем его
     response = client.delete("/api/v1/user", params={'email': "to_delete@mail.com"})
     assert response.status_code == 204
     
-    # Проверяем, что пользователь действительно удален
+    # Проверяем, что действительно удален
     get_response = client.get("/api/v1/user", params={'email': "to_delete@mail.com"})
     assert get_response.status_code == 404
