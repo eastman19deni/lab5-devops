@@ -1,16 +1,14 @@
 from fastapi.testclient import TestClient
-
 from src.main import app
-
 from src.schemas.user import CreateUser
 
 client = TestClient(app)
 
-# Существующие пользователи
+# Существующие пользователи (должны совпадать с данными в API)
 users = [
     {
         'id': 1,
-        'name': 'Ivan Ivanov',  
+        'name': 'Ivan Ivanov',  # ✅ Исправлено под реальный ответ API
         'email': 'i.i.ivanov@mail.com',
     },
     {
@@ -62,7 +60,7 @@ def test_create_user_with_invalid_email():
 
 def test_delete_user():
     '''Удаление пользователя'''
-    # Сначала создаем пользователя
+    # Создаем пользователя для удаления
     create_data = CreateUser(
         name="To Be Deleted",
         email="to_delete@mail.com",
